@@ -1,9 +1,9 @@
 import java.util.Random;
-import java.util.Scanner;
 
-public class Addition {
 
-    static boolean add() {
+class Addition {
+
+    static int add() {
 
         Random rand = new Random(); //instance of random class
         int bound = 10;
@@ -11,23 +11,15 @@ public class Addition {
         int a = rand.nextInt(bound);
         int b = rand.nextInt(bound);
 
-        System.out.println("Operation: "+a+" + "+b+" =");
-
-        Scanner scan = new Scanner(System.in);
-        int answer = scan.nextInt();
-        scan.close();
-        System.out.println("The number entered by user: "+answer);
-
-        boolean result = false;
-
-        if (answer == (a+b)){
-            result = true;
+        System.out.println("Operation: " + a + " + " + b + " =");
 
 
-        }
+        return a + b;
 
+    }
 
-        return result;
+    static boolean addVerify(int answer, int result) {
+        return (answer == result);
 
     }
 }

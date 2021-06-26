@@ -1,13 +1,25 @@
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
-        boolean rightAnswer;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Math Training");
 
-        System.out.println("Hello World!");
-        rightAnswer = Addition.add();
+        int correctAnswer;
+        int answer;
 
-        System.out.println("\nRight Answer is: "+rightAnswer);
+        boolean right = true;
+        while (right) {
+            System.out.println("\n");
 
-        //Call Player and send boolean right Answer
+            correctAnswer = Addition.add();
+            answer = scan.nextInt();
+            right = Addition.addVerify(answer, correctAnswer);
+
+        }
+
+        scan.close();
+
     }
 }
