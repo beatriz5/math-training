@@ -11,7 +11,7 @@ Created for Hack the Mountains 2.0
 
 ## Demonstration
 
-https://www.youtube.com/watch?v=Tn7FXkDTP9A
+Video Demo: https://www.youtube.com/watch?v=Tn7FXkDTP9A
 
 Presentation: https://github.com/beatriz5/math-training/blob/master/Math%20Training.pdf
 
@@ -24,7 +24,7 @@ Photo of the program running:
 * Java
 * Java AWT
 * Java Swing
-* IntelliJ IDEA
+* IntelliJ IDEA, if you are running it use this
 * NetBeans
 
 ## Author
