@@ -1,13 +1,23 @@
 # Math Training
-An educational game to improve your math skills. Created for Hack the Mountains 2.0
+An educational game to improve your math skills: 
 
-![alt text](https://github.com/beatriz5/math-training/blob/master/Math%20Training%203.JPG)
+* Improve your mental math calculation
+* Gamefies math & keeps your mind sharp
+* Different operations, add, subtract, multiply, and divide
+* Practice calculations in 4 different levels of expertise
+* Provides insights into your progress through scorekeeping
+
+Created for Hack the Mountains 2.0
 
 ## Demonstration
 
 https://www.youtube.com/watch?v=Tn7FXkDTP9A
 
 Presentation: https://github.com/beatriz5/math-training/blob/master/Math%20Training.pdf
+
+Photo of the program running:
+
+![alt text](https://github.com/beatriz5/math-training/blob/master/Math%20Training%203.JPG)
 
 ## Built With
 
