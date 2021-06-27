@@ -15,6 +15,8 @@ Video Demo: https://www.youtube.com/watch?v=Tn7FXkDTP9A
 
 Presentation: https://github.com/beatriz5/math-training/blob/master/Math%20Training.pdf
 
+The same presentation but in ppt format: https://github.com/beatriz5/math-training/blob/master/Presentation%20ppt.ppt
+
 Photo of the program running:
 
 ![alt text](https://github.com/beatriz5/math-training/blob/master/Math%20Training%203.JPG)
