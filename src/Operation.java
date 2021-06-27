@@ -9,11 +9,11 @@ class Operation {
         this.correctResult = 0;
     }
 
-    public void setCorrectResult(int r) {
+    private void setCorrectResult(int r) {
         this.correctResult = r;
     }
 
-    public int getCorrectResult() {
+    int getCorrectResult() {
         return correctResult;
     }
 
