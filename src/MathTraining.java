@@ -344,7 +344,6 @@ public class MathTraining extends JFrame {
       input.setText(""); // clearing input after user pressed stop button
       shownLabel
           .setText("Question will be shown here when started :"); // clearing label after user pressed stop button
-
       gameOver.setVisible(true); //showing game over frame
 
     }
