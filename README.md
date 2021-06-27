@@ -1,6 +1,8 @@
 # Math Training
 An educational game to improve your math skills. Created for Hack the Mountains 2.0
 
+![alt text](https://github.com/beatriz5/math-training/blob/master/Math%20Training%203.JPG)
+
 ## Demonstration
 
 https://www.youtube.com/watch?v=Tn7FXkDTP9A
