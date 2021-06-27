@@ -1,5 +1,4 @@
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -8,7 +7,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 
+
 public class MathTraining extends JFrame {
+  Operation operation;
 
   //CREATING ALL OBJECTS
   //radio buttons
@@ -26,7 +27,7 @@ public class MathTraining extends JFrame {
   JLabel wrongAnswer = new JLabel("0");
 
   //textfields
-  JTextField input = new JTextField(12);
+  JTextField input = new JTextField(50);
 
   //jbuttons
   JButton startButton = new JButton("Start");
@@ -47,7 +48,13 @@ public class MathTraining extends JFrame {
   JPanel panel62 = new JPanel();
 
   //ours design elements
-  Font font = new Font("Verdana", Font.BOLD, 50);
+  /*this.createdFont = false;
+        this.fontSerializedDataVersion = 1;
+        this.name = var1 != null ? var1 : "Default";
+        this.style = (var2 & -4) == 0 ? var2 : 0;
+        this.size = var3;
+        this.pointSize = (float)var3;*/
+  Font font = new Font("Verdana", Font.BOLD,50);
   Color backgroundOfPanel4 = new Color(73, 175, 205);
   Color backgroundOfPanel61 = new Color(64, 173, 95);
   Color backgroundOfPanel62 = new Color(212, 42, 42);
@@ -56,9 +63,15 @@ public class MathTraining extends JFrame {
   JFrame gameOver = new JFrame();
 
 
-  public MathTraining() {
+  public MathTraining(Operation op) {
     //frame layout
+
+    this.operation = op;
+
+
     setLayout(new BorderLayout());
+    Font font = new Font("Verdana", Font.BOLD,24);
+    setFont(font);
 
     //creating panels
     JPanel panel1 = new JPanel(); // types + levels
@@ -198,7 +211,7 @@ public class MathTraining extends JFrame {
     //frame settings
     gameOver.setTitle("Game Over");
     gameOver.setVisible(false);
-    gameOver.setSize(270, 150);
+    gameOver.setSize(500, 150);
     gameOver.setLocationRelativeTo(null);
     //END OF NEW FRAME
 
@@ -214,14 +227,13 @@ public class MathTraining extends JFrame {
     input.addKeyListener(new enterListener());
     startButton.addActionListener(new startListener());
     stopButton.addActionListener(new stopListener());
+
   }
 
 
   class starterListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
-      num1 = (int) (Math.random() * 6); // generating number 0 - 5
-      num2 = (int) (Math.random() * 6);
       interval = 1; // for generating random numbers after first progress is completed
     }
   }
@@ -229,18 +241,14 @@ public class MathTraining extends JFrame {
   class intermediateListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
-      num1 = (int) (Math.random() * 7 + 3); // generating number 3 - 10
-      num2 = (int) (Math.random() * 7 + 3);
-      interval = 2; // for generating random numbers after first progress is completed
+      interval = 11; // for generating random numbers after first progress is completed
     }
   }
 
   class advancedListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
-      num1 = (int) (Math.random() * 21); // generating number 0 - 20
-      num2 = (int) (Math.random() * 21);
-      interval = 3; // for generating random numbers after first progress is completed
+      interval = 35; // for generating random numbers after first progress is completed
     }
   }
 
@@ -275,26 +283,7 @@ public class MathTraining extends JFrame {
   class startListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
-
-      // generating math problems
-      if (operator == 1) {
-        result = num1 + num2; //formula
-        question = ("" + num1 + "+" + num2); //question label content
-      } else if (operator == 2) {
-        result = num1 - num2; //formula
-        question = ("" + num1 + "-" + num2); //question label content
-      } else if (operator == 3) {
-        result = num1 * num2; //formula
-        question = ("" + num1 + "*" + num2); //question label content
-      } else if (operator == 4) {
-        result = num1 * num2; //formula
-        question = ("" + num1 + "*" + num2); //question label content
-      } else {
-        result = num1 + num2; //formula
-        question = ("" + num1 + "+" + num2); //question label content
-      }
-
-      shownLabel.setText(question); // changing question label
+      shownLabel.setText(operation.question(operator,interval)); // changing question label
 
       // clearing counts after re-play
       correctCount = 0;
@@ -316,50 +305,20 @@ public class MathTraining extends JFrame {
         double doubleOfInput = Double.parseDouble(input.getText()); // getting string to double
 
         // checking answer is correct or wrong
-        if (doubleOfInput == result) {
+        if (doubleOfInput == operation.getCorrectResult()) {
           correctCount++; // increasing counter
-          String stringcount = Integer.toString(correctCount); // getting integer to string
-          countLabel.setText(stringcount);    // setting string to label
+             // setting string to label
         } else {
           wrongCount++; // increasing wrong counter
+          //String count = String.valueOf(operation.getCorrectResult());
+          //countLabel.setText(count);
         }
+        String stringCount = Integer.toString(correctCount); // getting integer to string
+        String total = Integer.toString(correctCount+wrongCount);
+        countLabel.setText(stringCount+"/"+total);
 
         input.setText(""); // clearing input after user entered answer
-
-        // re-generating numbers after user entered answer with checking level (same as before)
-        if (interval == 1) {
-          num1 = (int) (Math.random() * 6);
-          num2 = (int) (Math.random() * 6);
-        } else if (interval == 2) {
-          num1 = (int) (Math.random() * 7 + 3);
-          num2 = (int) (Math.random() * 7 + 3);
-        } else if (interval == 3) {
-          num1 = (int) (Math.random() * 21);
-          num2 = (int) (Math.random() * 21);
-        } else {
-          num1 = (int) (Math.random() * 100);
-          num2 = (int) (Math.random() * 100);
-        }
-
-        //re-generating formula
-        if (operator == 1) {
-          result = num1 + num2;
-          question = ("" + num1 + "+" + num2);
-        } else if (operator == 2) {
-          result = num1 - num2;
-          question = ("" + num1 + "-" + num2);
-        } else if (operator == 3) {
-          result = num1 * num2;
-          question = ("" + num1 + "*" + num2);
-        } else if (operator == 4) {
-          result = num1 / num2;
-          question = ("" + num1 + "/" + num2);
-        } else {
-          result = num1 + num2;
-          question = ("" + num1 + "+" + num2);
-        }
-
-        shownLabel.setText(question);//setting new question
+        shownLabel.setText(operation.question(operator, interval));//setting new question
 
       }
     }
@@ -393,7 +352,13 @@ public class MathTraining extends JFrame {
   }
 
   public static void main(String[] args) {
-    final MathTraining frame = new MathTraining();
+
+    Operation op = new Operation();
+    final MathTraining frame = new MathTraining(op);
+
+    Font font = new Font("Verdana", Font.BOLD,24);
+    frame.setFont(font);
+
     frame.pack();
     frame.setTitle("Math Training");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

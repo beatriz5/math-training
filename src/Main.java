@@ -13,9 +13,9 @@ public class Main {
         while (right) {
             System.out.println("\n");
 
-            correctAnswer = Addition.add();
+            correctAnswer = Operation.add();
             answer = scan.nextInt();
-            right = Addition.addVerify(answer, correctAnswer);
+            right = Operation.addVerify(answer, correctAnswer);
 
         }
 
