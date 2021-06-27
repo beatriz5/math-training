@@ -1,5 +1,5 @@
 # Math Training
-Hack the Mountains 2.0
+An educational game to improve your math skills. Created for Hack the Mountains 2.0
 
 ## Demonstration
 
