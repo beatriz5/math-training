@@ -1,41 +1,38 @@
 public class Player {
 
-  private String playerName;
-  private int playerScore;
+  private String name;
+  private int corrects; //how many you answered correctly
+  private int rounds; //how many questions you have answers
 
   public Player(String name) {
-    playerName = name;
+    this.name = name;
+    this.corrects = 0;
+    this.rounds = 0;
   }
 
-  /**
-   * This set method sets the name of the player.
-   *
-   *  @param
-   */
+
   public void setName(String name) {
-    this.playerName = name;
+    this.name = name;
   }
 
-  /**
-   * This get method returns the String value of player name.
-   *
-   *  @return PlayerName, a String value.
-   */
+
   public String getName() {
-    return playerName;
-  }
-  /**
-   * This set method sets the score of the player.
-   *
-   *  @param
-   */
-  public void setScore(int score) {
-    this.playerScore = score;
+    return name;
   }
 
-  public int getScore() {
-    return playerScore;
+  public int getCorrects() {
+    return corrects;
   }
 
+  public int getRounds() {
+    return rounds;
+  }
 
+  public void oneMoreRound() {
+    this.rounds++;
+  }
+
+  public void oneMoreCorrect() {
+    corrects++;
+  }
 }

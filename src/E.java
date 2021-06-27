@@ -1,6 +1,9 @@
-import java.util.Scanner;
+//AN EARLY VERSION WITHOUT GUI FOR THE TERMINAL
 
-public class Main {
+
+/*import java.util.Scanner;
+
+public class E {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -23,3 +26,6 @@ public class Main {
 
     }
 }
+*/
+
+

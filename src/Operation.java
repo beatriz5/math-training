@@ -3,18 +3,38 @@ import java.util.Random;
 
 class Operation {
     private int correctResult;
+    private int operation;
+    private int level;
 
 
     Operation() {
         this.correctResult = 0;
+        this.operation = 1;
+        this.level = 1;
     }
 
-    private void setCorrectResult(int r) {
+    void setCorrectResult(int r) {
         this.correctResult = r;
     }
 
     int getCorrectResult() {
         return correctResult;
+    }
+
+    void setOperation(int r) {
+        this.operation = r;
+    }
+
+    int getOperation() {
+        return operation;
+    }
+
+    void setLevel(int r) {
+        this.level = r;
+    }
+
+    int getLevel() {
+        return level;
     }
 
 
@@ -38,7 +58,7 @@ class Operation {
 
     }
 
-    String question(int operator, int lvl) {
+    String question() {
 
         Random rand = new Random(); //instance of random class
         int bound = 10;
@@ -51,22 +71,22 @@ class Operation {
         String question = "Nothing";
 
 
-        switch (operator) {
+        switch (operation) {
             case 1:
-                question = "Operation: " + a * lvl + " + " + b * lvl + " =";
-                setCorrectResult(a * lvl + b * lvl);
+                question = "" + a * level + " + " + b * level + " =";
+                setCorrectResult(a * level + b * level);
                 break;
             case 2:
-                question = "Operation: " + a * lvl + " - " + b * lvl + " =";
-                setCorrectResult(a * lvl - b * lvl);
+                question = "" + a * level + " - " + b * level + " =";
+                setCorrectResult(a * level - b * level);
                 break;
             case 3:
-                question = "Operation: " + a * lvl + " * " + b * lvl + " =";
-                setCorrectResult((a * lvl) * (b * lvl));
+                question = "" + a * level + " * " + b * level + " =";
+                setCorrectResult((a * level) * (b * level));
                 break;
             case 4:
-                question = "Operation: " + (a * lvl) + " / " + (1 + b) + " =";
-                setCorrectResult(Math.round((a * lvl) / (1 + b)));
+                question = "" + (a * level) + " / " + (1 + b) + " =";
+                setCorrectResult(Math.round((a * level) / (1 + (b * level))));
                 break;
         }
 

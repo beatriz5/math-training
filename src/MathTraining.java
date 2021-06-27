@@ -1,365 +1,362 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.*;
-import javax.swing.border.*;
 
+public class MathTraining extends javax.swing.JFrame {
 
-public class MathTraining extends JFrame {
+    /**
+     * Creates new form NewJFrame
+     */
     Operation operation;
+    Player player;
 
-
-    //CREATING ALL OBJECTS
-    //radio buttons
-    JRadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6, radioButton7;
-    ButtonGroup typeGroup = new ButtonGroup();
-    ButtonGroup levelGroup = new ButtonGroup();
-
-    //labels
-    JLabel questionLabel = new JLabel("Question:");
-    JLabel answerLabel = new JLabel("Answer:");
-    JLabel shownLabel = new JLabel("Question will be shown :");
-    JLabel countLabel = new JLabel("Correct count be shown");
-    JLabel toLabel = new JLabel(" to ");
-    JLabel correctAnswer = new JLabel("0");
-    JLabel wrongAnswer = new JLabel("0");
-
-    //textfields
-    JTextField input = new JTextField(50);
-
-    //jbuttons
-    JButton startButton = new JButton("Start");
-    JButton stopButton = new JButton("Stop");
-
-    //variables
-    int num1, num2, operator, interval;
-    int correctCount, wrongCount = 0;
-    double result;
-    String question;
-
-    //invisible panel of selecting intervals
-    JPanel panel4 = new JPanel();
-
-    //New Frame objects
-    JPanel panel6 = new JPanel();
-    JPanel panel61 = new JPanel();
-    JPanel panel62 = new JPanel();
-
-    //ours design elements
-  /*this.createdFont = false;
-        this.fontSerializedDataVersion = 1;
-        this.name = var1 != null ? var1 : "Default";
-        this.style = (var2 & -4) == 0 ? var2 : 0;
-        this.size = var3;
-        this.pointSize = (float)var3;*/
-    Font font = new Font("Verdana", Font.BOLD, 50);
-    Color backgroundOfPanel4 = new Color(73, 175, 205);
-    Color backgroundOfPanel61 = new Color(64, 173, 95);
-    Color backgroundOfPanel62 = new Color(212, 42, 42);
-
-    //creating new frame
-    JFrame gameOver = new JFrame();
-
-
-    public MathTraining(Operation op) {
-        //frame layout
-
+    public MathTraining(Operation op, Player player) {
+        initComponents();
         this.operation = op;
-
-
-        setLayout(new BorderLayout());
-        Font font = new Font("Verdana", Font.BOLD, 24);
-        setFont(font);
-
-        //creating panels
-        JPanel panel1 = new JPanel(); // types + levels
-        JPanel panel11 = new JPanel(); // types
-        JPanel panel12 = new JPanel(); // levels
-        JPanel panel2 = new JPanel(); //  question + answer + label of input + input + start & stop buttons
-        JPanel panel21 = new JPanel(); // question + answer
-        JPanel panel211 = new JPanel(); // question
-        JPanel panel212 = new JPanel();  // answer
-        JPanel panel22 = new JPanel();  // label of input + input
-        JPanel panel23 = new JPanel();  // start & stop button
-        JPanel panel3 = new JPanel(); // correct count + time spent
-        JPanel panel31 = new JPanel();  // correct count
-        JPanel panel32 = new JPanel();  // time spent
-        //we create panel4 outside of constructor
-        JPanel panel5 = new JPanel(); //invisible panel4 + panel2
-
-        //setting panel4 to invisible
-        panel4.setVisible(false);
-
-        //adding borders to panels
-        panel11.setBorder(new TitledBorder("Choose a type"));
-        panel12.setBorder(new TitledBorder("Choose a level"));
-        panel31.setBorder(new TitledBorder("Correct Count"));
-
-        //designing titles, panel backgrounds and font colors
-
-        TitledBorder titledBorder = new TitledBorder(
-                "Choose a level"); // the object named "title" is created
-        titledBorder.setTitleColor(Color.BLUE); // the color is added to the object "title".
-        panel4.setBorder(titledBorder); // titled border is set to panel4.
-
-        panel4.setBackground(backgroundOfPanel4);
-        toLabel.setForeground(Color.white);
-
-        //layouts (the others are flow layout by default)
-        panel1.setLayout(new GridLayout(1, 2));
-        panel11.setLayout(new GridLayout(4, 1));
-        panel12.setLayout(new GridLayout(4, 1));
-        panel2.setLayout(new GridLayout(3, 1));
-        panel21.setLayout(new GridLayout(1, 2));
-        panel211
-                .setLayout(new FlowLayout(FlowLayout.LEFT));
-        panel212
-                .setLayout(new FlowLayout(FlowLayout.LEFT));
-        panel3.setLayout(new GridLayout(1, 2));
-        panel5.setLayout(new BorderLayout());
-
-        //defining objects
-        radioButton1 = new JRadioButton("Add");
-        radioButton2 = new JRadioButton("Subtract");
-        radioButton3 = new JRadioButton("Multiply");
-        radioButton4 = new JRadioButton("Divide");
-
-        radioButton5 = new JRadioButton("Starter");
-        radioButton6 = new JRadioButton("Intermediate");
-        radioButton7 = new JRadioButton("Advanced");
-
-        //adding objects to group
-        typeGroup.add(radioButton1);
-        typeGroup.add(radioButton2);
-        typeGroup.add(radioButton3);
-        typeGroup.add(radioButton4);
-
-        levelGroup.add(radioButton5);
-        levelGroup.add(radioButton6);
-        levelGroup.add(radioButton7);
-
-        //adding objects to panel
-        panel11.add(radioButton1);
-        panel11.add(radioButton2);
-        panel11.add(radioButton3);
-        panel11.add(radioButton4);
-        panel12.add(radioButton5);
-        panel12.add(radioButton6);
-        panel12.add(radioButton7);
-
-        panel211.add(questionLabel);
-        panel212.add(answerLabel);
-
-        panel22.add(shownLabel);
-        panel22.add(input);
-        panel23.add(startButton);
-        panel23.add(stopButton);
-
-        panel31.add(countLabel);
-
-        //adding nested panels
-        panel1.add(panel11);
-        panel1.add(panel12);
-
-        panel21.add(panel211);
-        panel21.add(panel212);
-        panel2.add(panel21);
-        panel2.add(panel22);
-        panel2.add(panel23);
-
-        panel3.add(panel31);
-        panel3.add(panel32);
-
-        panel5.add(panel4, BorderLayout.NORTH);
-        panel5.add(panel2, BorderLayout.SOUTH);
-
-        //adding panel to frame
-        add(panel1, BorderLayout.NORTH);
-        add(panel5, BorderLayout.CENTER);
-        add(panel3, BorderLayout.SOUTH);
-
-        //START OF NEW FRAME
-        //designing new frame (colors, font, etc...)
-        correctAnswer.setFont(font);
-        correctAnswer.setForeground(Color.white);
-        wrongAnswer.setFont(font);
-        wrongAnswer.setForeground(Color.white);
-        panel61.setBackground(backgroundOfPanel61);
-        panel62.setBackground(backgroundOfPanel62);
-
-        //titled borders of new frame
-        TitledBorder titledBorder2 = new TitledBorder("Correct Answer");
-        titledBorder2.setTitleColor(Color.WHITE);
-        panel61.setBorder(titledBorder2);
-
-        TitledBorder titledBorder3 = new TitledBorder("Wrong Answer");
-        titledBorder3.setTitleColor(Color.WHITE);
-        panel62.setBorder(titledBorder3);
-
-        //layout of new frame's panel
-        panel6.setLayout(new GridLayout(1, 2, 10, 10));
-
-        //adding objects to panel and panel to frame
-        panel61.add(correctAnswer);
-        panel62.add(wrongAnswer);
-        panel6.add(panel61);
-        panel6.add(panel62);
-        gameOver.add(panel6);
-
-        //frame settings
-        gameOver.setTitle("Game Over");
-        gameOver.setVisible(false);
-        gameOver.setSize(500, 150);
-        gameOver.setLocationRelativeTo(null);
-        //END OF NEW FRAME
-
-        //Register a listener for the radio buttons.
-        radioButton1.addActionListener(new addListener());
-        radioButton2.addActionListener(new subListener());
-        radioButton3.addActionListener(new multipyListener());
-        radioButton4.addActionListener(new divideListener());
-        radioButton5.addActionListener(new starterListener());
-        radioButton6.addActionListener(new intermediateListener());
-        radioButton7.addActionListener(new advancedListener());
-
-        input.addKeyListener(new enterListener());
-        startButton.addActionListener(new startListener());
-        stopButton.addActionListener(new stopListener());
-
+        this.player = player;
     }
 
+    int correctCount, wrongCount = 0;
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
 
-    class starterListener implements ActionListener {
+    //initComponents() TO DISPLAY IN WINDOW
+    private void initComponents() {
 
-        public void actionPerformed(ActionEvent e) {
-            interval = 1; // for generating random numbers after first progress is completed
+        jPanel3 = new javax.swing.JPanel();
+        jLabelScore = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jEditorPaneAnswer = new javax.swing.JEditorPane();
+        jComboBoxLevel = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBoxOperation = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabelScore.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
+        jLabelScore.setText("0/0");
+
+        jEditorPaneAnswer.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
+        jEditorPaneAnswer.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jEditorPaneAnswer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jEditorPaneAnswerKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jEditorPaneAnswerKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jEditorPaneAnswer);
+        jScrollPane2.setHorizontalScrollBarPolicy(jScrollPane2.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(jScrollPane2.VERTICAL_SCROLLBAR_NEVER);
+
+
+        jComboBoxLevel.setFont(new java.awt.Font("Dialog", 0, 28)); // NOI18N
+        jComboBoxLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Starter", "Intermediate", "Advanced", "Impossible" }));
+        jComboBoxLevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxLevelActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Corbel Light", 0, 72)); // NOI18N
+        //jLabel6.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Math Training");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
+        jLabel2.setText("Choose a level");
+
+        jComboBoxOperation.setFont(new java.awt.Font("Dialog", 0, 28)); // NOI18N
+        jComboBoxOperation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Addition", "Subtract", "Multiply", "Divide" }));
+        jComboBoxOperation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxOperationActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
+        jLabel8.setText("2.0");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
+        jLabel3.setText("Choose an operation");
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
+        jLabel9.setText("HTM");
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 30)); // NOI18N
+        jLabel4.setText("Score:");
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 0, 54)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("3 + 7 =");
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setText("Type your answer in the box and press enter");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addGap(796, 796, 796)
+                                                        .addComponent(jLabel9)
+                                                        .addGap(29, 29, 29)
+                                                        .addComponent(jLabel8))
+                                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addComponent(jLabel4)
+                                                        .addGap(29, 29, 29)
+                                                        .addComponent(jLabelScore)))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel1)
+                                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                                                .addComponent(jComboBoxOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(124, 124, 124)
+                                                                .addComponent(jLabel2)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(jComboBoxLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)))))
+                                .addGap(0, 84, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabelScore))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jComboBoxOperation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel2)
+                                                .addComponent(jComboBoxLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel3))
+                                .addGap(70, 70, 70))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>
+
+
+    //TO SHOW THE FIRST OPERATION
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {
+        // TODO add your handling code here:
+        jLabel7.setText(operation.question());
+    }
+
+    private void jComboBoxLevelActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+
+
+        try {
+            String value = String.valueOf(jComboBoxLevel.getSelectedItem());
+
+            //LEVEL
+            switch (value) {
+                case "Starter":
+                    operation.setLevel(1);
+                    break;
+                case "Intermediate":
+                    operation.setLevel(3);
+                    break;
+                case "Advanced":
+                    operation.setLevel(11);
+                    break;
+                case "Impossible":
+                    operation.setLevel(1856);
+                    break;
+
+            }
+            jLabel7.setText(operation.question());
         }
-    }
-
-    class intermediateListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            interval = 11; // for generating random numbers after first progress is completed
-        }
-    }
-
-    class advancedListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            interval = 35; // for generating random numbers after first progress is completed
-        }
-    }
-
-    class addListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            operator = 1;  // for generating formula to calculate correct answer
-        }
-    }
-
-    class subListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            operator = 2;  // for generating formula to calculate correct answer
-        }
-    }
-
-    class multipyListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            operator = 3;  // for generating formula to calculate correct answer
-        }
-    }
-
-    class divideListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            operator = 4;  // for generating formula to calculate correct answer
-        }
-    }
-
-    class startListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            shownLabel.setText(operation.question(operator, interval)); // changing question label
-
-            // clearing counts after re-play
-            correctCount = 0;
-            wrongCount = 0;
-            countLabel.setText("Correct count be shown");
-
+        catch(Exception e) {
+            //  Block of code to handle errors
         }
 
+
     }
 
-    // implements key listener because of reading action of enter from keyboard
-    class enterListener implements KeyListener {
+    private void jComboBoxOperationActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        try {
+            //  Block of code to try
+            String value = String.valueOf(jComboBoxOperation.getSelectedItem());
+            //jLabel7.setText(value);
 
-        public void keyPressed(KeyEvent e) {
+            //OPERATION
+            switch (value) {
+                case "Addition":
+                    operation.setOperation(1);
+                    break;
+                case "Subtract":
+                    operation.setOperation(2);
+                    break;
+                case "Multiply":
+                    operation.setOperation(3);
+                    break;
+                case "Divide":
+                    operation.setOperation(4);
+                    break;
+            }
+            jLabel7.setText(operation.question());
+        }
+        catch(Exception e) {
+            //  Block of code to handle errors
+        }
 
-            // checking enter action
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-                double doubleOfInput = Double.parseDouble(input.getText()); // getting string to double
+    }
+    private void jEditorPaneAnswerKeyPressed(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:
+
+        try {
+            //  Block of code to try
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                int input = Integer.valueOf(jEditorPaneAnswer.getText()); // getting string to double
+
 
                 // checking answer is correct or wrong
-                if (doubleOfInput == operation.getCorrectResult()) {
-                    correctCount++; // increasing counter
+                if (input == operation.getCorrectResult()) {
+                    //correctCount++; // increasing counter
+                    player.oneMoreCorrect();
+                    player.oneMoreRound();
+                    jLabel4.setForeground(new Color(0,102,51));
+                    jLabelScore.setForeground(new Color(0,102,51));
                 } else {
-                    wrongCount++; // increasing wrong counter
+                    jLabel4.setForeground(new Color(204, 0, 0));//204, 0, 0
+                    jLabelScore.setForeground(new Color(204, 0, 0));//204, 0, 0
+                    player.oneMoreRound();
                 }
-                String stringCount = Integer.toString(correctCount); // getting integer to string
-                String total = Integer.toString(correctCount + wrongCount);
-                countLabel.setText(stringCount + "/" + total);
+                //String stringCount = Integer.toString(correctCount); // getting integer to string
+                //String total = Integer.toString(correctCount + wrongCount);
 
-                input.setText(""); // clearing input after user entered answer
-                shownLabel.setText(operation.question(operator, interval));//setting new question
+
+                jLabelScore.setText(Integer.toString(player.getCorrects()) + "/" + Integer.toString(player.getRounds()));
+                jEditorPaneAnswer.setText(""); // clearing input after user entered answer
+                jLabel7.setText(operation.question());//setting new question
+
 
             }
         }
-
-        // implementation
-        //other method1 for key release
-        public void keyReleased(KeyEvent e) {
-        }
-
-        //other method2 for key entered
-        public void keyTyped(KeyEvent e) {
-        }
-    }
-
-    //after user press stop button
-    class stopListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            correctAnswer.setText("" + correctCount); // showing correct for both jframes
-            wrongAnswer.setText("" + wrongCount);// showing correct for new jframes
-
-            input.setText(""); // clearing input after user pressed stop button
-            shownLabel
-                    .setText("Question will be shown here when started :"); // clearing label after user pressed stop button
-            gameOver.setVisible(true); //showing game over frame
+        catch(Exception e) {
+            jLabel1.setText("ONLY INTEGERS & NO SPACES");//setting new question
 
         }
 
     }
 
-    public static void main(String[] args) {
-
-        Operation op = new Operation();
-        final MathTraining frame = new MathTraining(op);
-
-        Font font = new Font("Verdana", Font.BOLD, 24);
-        frame.setFont(font);
-
-        frame.pack();
-        frame.setTitle("Math Training");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
+    private void jEditorPaneAnswerKeyReleased(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jEditorPaneAnswer.setText(""); // clearing input after user entered answer
+        }
+        //jLabelScore.setForeground(Color.black);
+        //jLabel4.setForeground(Color.black);
     }
+
+
+    public static void main(String args[]) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MathTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MathTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MathTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MathTraining.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Player player1 = new Player("Beatriz");
+                Operation op = new Operation();
+                new MathTraining(op, player1).setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify
+    private javax.swing.JComboBox<String> jComboBoxLevel;
+    private javax.swing.JComboBox<String> jComboBoxOperation;
+    private javax.swing.JEditorPane jEditorPaneAnswer;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelScore;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    // End of variables declaration
 }
